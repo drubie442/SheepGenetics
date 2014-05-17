@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, SheepGeneticsDemoActivity!</string>
+    <string name="app_name">Sheep Genetics Demo</string>
+    <string name="settings">Settings</string>
+    <string name="defaultServerName">sgsearchqa.sheepgenetics.org.au</string>
+    <string name="defaultPassword">guest</string>
+    <string name="defaultUserName">guest</string>
+
+</resources>
