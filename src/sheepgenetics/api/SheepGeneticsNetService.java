@@ -36,12 +36,7 @@ public class SheepGeneticsNetService extends Service {
 	   MessageDigest md = MessageDigest.getInstance("SHA-1");
 	   md.update(s.getBytes());
 	   byte[] bytes = md.digest();
-	   StringBuffer buffer = new StringBuffer();
-	   for (int i=0; i < bytes.length; i++) {
-		   String tmp = Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1);
-		   buffer.append(tmp);
-		   }
-	   return buffer.toString();
+	   return bytesToHex(bytes);
 	}
 	
 	private static String HmacSHA1(String value, String key)
@@ -121,8 +116,10 @@ public class SheepGeneticsNetService extends Service {
 			//url = "http://sgsearch.sheepgenetics.org.au/api/1/1/analyses.xml?timestamp=" +timeStamp + "&appid=" + publicAppAPIKey + "&userid=" + userName + "&apikey=" + hmac;
 
 		DefaultHttpClient hc = new DefaultHttpClient();
-			HttpGet get = new HttpGet("http://" + server + "/api/1query/animal/" + animalId + ".json?timestamp=" +timeStamp + "&appid=" + publicAppAPIKey + "&userid=" + userName + "&apikey=" + hmac);
-
+		String url = "http://" + server + "/api/1/findanimal/" + animalId + ".json?timestamp=" +timeStamp + "&appid=" + publicAppAPIKey + "&userid=" + userName + "&apikey=" + hmac;
+		act.onError(url);
+		
+		HttpGet get = new HttpGet(url);
 		HttpResponse rp = hc.execute(get);
 		if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
 		{
@@ -142,9 +139,10 @@ public class SheepGeneticsNetService extends Service {
 				act.onError(builder.toString());
 			}
 			}
+			
 		else
 		{
-			act.onError(rp.getStatusLine().getReasonPhrase());
+			act.onError(rp.getStatusLine().getReasonPhrase() + url);
 		}
 		}catch(IOException e){
 				msg = e.getMessage();
