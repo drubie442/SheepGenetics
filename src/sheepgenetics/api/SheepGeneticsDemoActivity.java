@@ -86,9 +86,9 @@ public class SheepGeneticsDemoActivity extends Activity implements OnClickListen
         // restore user preferences
      // Restore preferences
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        Server = settings.getString("Server", "guest");
-        Username = settings.getString("Username", "guest");
-        Password = settings.getString("Password", "sgsearchqa.sheepgenetics.org.au");
+        Server = settings.getString("Server", "sgsearch.sheepgenetics.org.au");
+        Username = settings.getString("Username", "public");
+        Password = settings.getString("Password", "public");
         
         // create net service
     	sgns = new SheepGeneticsNetService();
